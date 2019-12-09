@@ -3,13 +3,6 @@
 #include "json.hpp"
 #include "json_tools.hpp"
 
-
-
-#include <iostream>
-
-using namespace std;
-
-
 using std::map;
 using std::pair;
 using std::vector;
@@ -62,7 +55,7 @@ any& Json::operator[](size_t index){
 map<string, any> Json::init_object(const string & s, const size_t start){
 	map<string, any> result;
 	pair<any, size_t> value;
-	for (size_t i = start; i<=s.size(); ++i){
+	for (size_t i = start; i <= s.size(); ++i){
 		JsonTools::expect_(s[i], '\"');
 		string key = JsonTools::parse_string_literally(s, ++i);
 		i += key.size() + 1;

@@ -1,3 +1,4 @@
+//Copyright 2019 nikitos
 #ifndef INCLUDE_TOOLS_HPP_
 #define INCLUDE_TOOLS_HPP_
 

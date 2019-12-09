@@ -1,4 +1,4 @@
-
+//Copyright 1991 nikitos
 #include <gtest/gtest.h>
 #include "json.hpp"
 

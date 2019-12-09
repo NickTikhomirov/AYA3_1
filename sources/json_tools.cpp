@@ -6,7 +6,7 @@ using std::size_t;
 
 
 void JsonTools::expect_(char a, char b) {
-	if(a!=b) throw std::exception();
+	if(a != b) throw std::exception();
 }
 
 
@@ -32,12 +32,12 @@ void JsonTools::filler(string& s){
 
 string JsonTools::parse_string_literally(const string& s, const size_t start){
 	size_t i = start;
-	for(; s[i] != '\"' && i<=s.size(); ++i);
+	for (; s[i] != '\"' && i <= s.size(); ++i) {}
 	return s.substr(start, i-start);
 }
 
 string JsonTools::parse_number(const string& s, const size_t start){
 	size_t i = start;
-	for (; i < s.length() && is_digit(s[i]); ++i);
-	return s.substr(start,i-start+1);
+	for (; i < s.length() && is_digit(s[i]); ++i) {}
+	return s.substr(start, i-start+1);
 }

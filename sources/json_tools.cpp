@@ -1,13 +1,13 @@
 //Copyright 2019 nikitos
 #include "json_tools.hpp"
-
+#include "json_excepts.hpp"
 
 using std::string;
 using std::size_t;
 
 
 void JsonTools::expect_(char a, char b) {
-	if(a != b) throw std::exception();
+	if(a != b) throw json_exception::JsonException("Unexpected symbol!");
 }
 
 
@@ -26,7 +26,12 @@ size_t JsonTools::size_of_item(const string& s, const size_t current, const char
 void JsonTools::filler(string& s){
 	size_t i = 0;
 	while (i < s.size()){
-		if (s[i] == '\n' || s[i] == '\r' || s[i] == '\t' || s[i] == ' ') s.erase(s.begin() + i);
+		if(
+			s[i] == ' ' 
+			|| s[i] == '\n' 
+			|| s[i] == '\t' 
+			|| s[i] == '\r'
+		) s.erase(s.begin() + i);
 		else ++i;
 	}
 }

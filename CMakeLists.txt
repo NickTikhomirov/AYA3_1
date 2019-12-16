@@ -41,8 +41,15 @@ add_library(json STATIC
 add_library(tools STATIC
   ${CMAKE_CURRENT_SOURCE_DIR}/sources/json_tools.cpp
 )
+add_library(excepts STATIC
+  ${CMAKE_CURRENT_SOURCE_DIR}/sources/json_excepts.cpp
+)
 
 
+
+add_executable(main
+  ${CMAKE_CURRENT_SOURCE_DIR}/sources/Source.cpp
+)
 add_executable(tests
   ${CMAKE_CURRENT_SOURCE_DIR}/tests/test.cpp
 )
@@ -61,9 +68,23 @@ target_include_directories(tests
   PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include
 )
 
+target_include_directories(excepts 
+  PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include
+)
 
-target_link_libraries(json tools)
-target_link_libraries(tests GTest::main json tools)
+target_include_directories(main 
+  PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include
+)
+
+target_include_directories(main 
+  PUBLIC nlohmann_json::nlohmann_json
+)
+
+
+target_link_libraries(json tools excepts)
+target_link_libraries(main json nlohmann_json::nlohmann_json)
+target_link_libraries(tests GTest::main json tools excepts)
+
 
 enable_testing()
 add_test(NAME unit_tests COMMAND tests) 

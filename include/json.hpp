@@ -20,9 +20,9 @@ using std::any;
 
 
 class Json {
-	map<string, any> init_object(const string& s, const size_t start);
-	vector<any> init_array_contents(const string& s, const size_t start);
-	pair<any, size_t> init_right_of_pair(const string& s, const size_t start);
+	map<string, any> init_object(string& s, size_t start);
+	vector<any> init_array_contents(string& s, size_t start);
+	any init_right_of_pair(string& s, size_t& start);
 public:
 	// Конструктор из строки, содержащей Json-данные.
 	Json(const string& s);
@@ -44,9 +44,14 @@ public:
 
 	// Метод возвращает объект класса Json из строки, содержащей Json-данные.
 	static Json parse(const string& s);
+
+	// Метод возвращает объекта класса Json из файла, содержащего Json-данные в текстовом формате.
+	static Json parseFile(const std::string& path_to_file);
 private:
 	map<string, std::any> object;
 	vector<any> array;
 };
+
+
 
 #endif // INCLUDE_JSON_HPP_

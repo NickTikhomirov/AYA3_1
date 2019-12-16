@@ -1,33 +1,36 @@
 //Copyright 1991 nikitos
 #include <gtest/gtest.h>
+#include <string>
 #include "json.hpp"
 
-const char* const json_data = R"(
-{
-    "lastname" : "Ivanov",
-    "firstname" : "Ivan",
-    "age" : 25,
-    "islegal" : false,
-    "marks" : [
-    	4,5,5,5,2,3
-    ],
-    "address" : {
-    	"city" : "Moscow",
-        "street" : "Vozdvijenka"
-    }
-})";
 
-TEST(Json, LoadFromString) {
-	Json object = Json::parse(json_data);
-	EXPECT_EQ(std::any_cast<std::string>(object["lastname"]), "Ivanov");
-	EXPECT_EQ(std::any_cast<bool>(object["islegal"]), false);
-	EXPECT_EQ(std::any_cast<double>(object["age"]), 25);
+using std::any_cast;
 
-	auto marks = std::any_cast<Json>(object["marks"]);
-	EXPECT_EQ(std::any_cast<double>(marks[0]), 4);
-	EXPECT_EQ(std::any_cast<double>(marks[1]), 5);
 
-	auto address = std::any_cast<Json>(object["address"]);
-	EXPECT_EQ(std::any_cast<std::string>(address["city"]), "Moscow");
-	EXPECT_EQ(std::any_cast<std::string>(address["street"]), "Vozdvijenka");
+TEST(Json, ReadString) {
+	string potential_json = "\
+	{\
+		\"lastname\" : \"Ivanov\",\
+		\"firstname\" : \"Ivan\",\
+		\"age\" : 25,\
+		\"islegal\" : false,\
+		\"marks\" : [\
+    		4,5,5,5,2,3\
+		],\
+		\"address\" : {\
+    		\"city\" : \"Moscow\",\
+			\"street\" : \"Vozdvijenka\"\
+		}\
+	}";
+	Json that_thing = Json::parse(potential_json);
+	EXPECT_EQ(any_cast<std::string>(that_thing["lastname"]), "Ivanov");
+	EXPECT_EQ(any_cast<std::string>(that_thing["firstname"]), "Ivan");
+	EXPECT_TRUE(!any_cast<bool>(that_thing["islegal"]));
+	EXPECT_EQ(any_cast<double>(that_thing["age"]), 25);
+	Json marks = any_cast<Json>(that_thing["marks"]);
+	EXPECT_EQ(any_cast<double>(marks[0]), 4);
+	EXPECT_EQ(any_cast<double>(marks[1]), 5);
+	Json address = any_cast<Json>(that_thing["address"]);
+	EXPECT_EQ(any_cast<std::string>(address["city"]), "Moscow");
+	EXPECT_EQ(any_cast<std::string>(address["street"]), "Vozdvijenka");
 }

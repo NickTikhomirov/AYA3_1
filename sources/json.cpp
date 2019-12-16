@@ -107,25 +107,21 @@ any Json::init_right_of_pair(string& s, size_t& start) {
 		str = JsonTools::parse_string_literally(s, start + 1);
 		i += str.size() + 1;
 		value = str;
-	}
-	else if (s[i] == '[') {
+	} else if (s[i] == '[') {
 		size_t end = JsonTools::size_of_item(s, i, '[', ']');
 		str = s.substr(i, end);
 		value = Json(str);
 		i += end;
-	}
-	else if (s[i] == '{') {
+	} else if (s[i] == '{') {
 		size_t end = JsonTools::size_of_item(s, i, '{', '}');
 		str = s.substr(i, end);
 		value = Json(str);
 		i += end;
-	}
-	else if (JsonTools::is_digit(s[i])) {
+	} else if (JsonTools::is_digit(s[i])) {
 		str = JsonTools::parse_number(s, start);
 		i += str.size() - 1;
 		value = atof(str.c_str());
-	}
-	else {
+	} else {
 		bool gotit = false;
 		JsonTools j;
 		for (auto p : j.allowedLexems) {

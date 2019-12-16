@@ -1,3 +1,4 @@
+//Copyright 2019 nikitos
 #include <iostream>
 #include "json.hpp"
 #include <nlohmann/json.hpp>

@@ -30,8 +30,8 @@ void JsonTools::filler(string& s){
 			s[i] == ' ' 
 			|| s[i] == '\n' 
 			|| s[i] == '\t' 
-			|| s[i] == '\r'
-		) s.erase(s.begin() + i);
+			|| s[i] == '\r')
+			s.erase(s.begin() + i);
 		else ++i;
 	}
 }
